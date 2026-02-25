@@ -2,7 +2,7 @@
 #include <limits>
 #include <string>
 
-#include "../include/Bid.hpp"
+#include "../include/Course.hpp"
 #include "../include/Menu.hpp"
 #include "../include/BinarySearchTree.hpp"
 
@@ -12,7 +12,7 @@ void Menu::run(int argc, char* argv[]) {
     BinarySearchTree bst;
     int choice = 0;
     const string DEFAULT_BID_ID = "80687";
-    string csvPath = argc > 1 ? argv[1] : string(DATA_DIR) + "/eBid_Monthly_Sales.csv";
+    string csvPath = argc > 1 ? argv[1] : string(DATA_DIR) + "/CS 300 ABCU_Advising_Program_Input.csv";
 
     cout << "Welcome to the course planner." << endl;
 
@@ -42,12 +42,6 @@ void Menu::run(int argc, char* argv[]) {
                 break;
             }
 
-            case 4: {
-                std::string bidKey = promptBidId(DEFAULT_BID_ID);
-                bst.Remove(bidKey);
-                break;
-            }
-
             case 9:
                 cout << "Good bye." << endl;
                 break;
@@ -60,11 +54,11 @@ void Menu::run(int argc, char* argv[]) {
 
 void Menu::findBidAndTrackTime(BinarySearchTree* bst, const std::string& bidKey) {
     clock_t ticks = clock();
-    const Bid bid = bst->Search(bidKey);
+    const Course bid = bst->Search(bidKey);
     ticks = clock() - ticks; // current clock ticks minus starting clock ticks
 
     if (!bid.bidId.empty()) {
-        displayBid(bid);
+        displayCourse(bid);
     } else {
         cout << "Bid Id " << bidKey << " not found." << endl;
     }
@@ -80,7 +74,7 @@ void Menu::loadBidsAndTrackTime(const string& csvPath, BinarySearchTree& bst) {
     cout << endl;
     cout << "Loading CSV file " << csvPath << endl;
     cout << endl;
-    loadBids(csvPath, bst);
+    loadData(csvPath, bst);
 
     // Calculate elapsed time and display result
     ticks = clock() - ticks; // current clock ticks minus starting clock ticks

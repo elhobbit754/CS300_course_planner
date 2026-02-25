@@ -10,7 +10,7 @@
 
 #include "../include/CSVparser.hpp"
 #include "../include/BinarySearchTree.hpp"
-#include "../include/Bid.hpp"
+#include "../include/Course.hpp"
 
 using namespace std;
 
@@ -42,76 +42,55 @@ void BinarySearchTree::InOrder() {
 }
 
 /**
- * Traverse the tree in post-order
+ * Insert a course
  */
-void BinarySearchTree::PostOrder() {
-    postOrder(root);
-}
-
-/**
- * Traverse the tree in pre-order
- */
-void BinarySearchTree::PreOrder() {
-    preOrder(root);
-}
-
-/**
- * Insert a bid
- */
-void BinarySearchTree::Insert(Bid bid) {
+void BinarySearchTree::Insert(Course course) {
     if (root == nullptr) {
-        root = new Node(bid);
+        root = new Node(course);
     } else {
-        addNode(root, bid);
+        addNode(root, course);
     }
 }
 
 /**
- * Remove a bid
+ * Search for a course
  */
-void BinarySearchTree::Remove(string bidId) {
-    root = removeNode(root, bidId);
-}
-
-/**
- * Search for a bid
- */
-Bid BinarySearchTree::Search(string bidId) {
+Course BinarySearchTree::Search(string courseId) {
     Node* current = root;
 
     while (current != nullptr) {
-        if (current->bid.bidId == bidId) {
-            return current->bid;
+        if (current->course.bidId == courseId) {
+            return current->course;
         }
 
-        if (bidId < current->bid.bidId) {
+        if (courseId < current->course.bidId) {
             current = current->left;
         } else {
             current = current->right;
         }
     }
 
-    return Bid();
+    return Course();
 }
 
 /**
- * Add a bid to some node (recursive)
+ * Add a course to some node (recursive)
  *
  * @param node Current node in tree
- * @param bid Bid to be added
+ * @param course course to be added
  */
-void BinarySearchTree::addNode(Node* node, Bid bid) {
-    if (bid.bidId < node->bid.bidId) {
+void BinarySearchTree::addNode(Node* node, Course course) {
+    if (course.bidId < node->course.bidId) {
         if (node->left == nullptr) {
-            node->left = new Node(bid);
+            node->left = new Node(course);
         } else {
-            addNode(node->left, bid);
+            addNode(node->left, course);
         }
     } else {
         if (node->right == nullptr) {
-            node->right = new Node(bid);
+            node->right = new Node(course);
         } else {
-            addNode(node->right, bid);
+            addNode(node->right, course);
         }
     }
 }
@@ -123,95 +102,12 @@ void BinarySearchTree::inOrder(Node* node) {
 
     inOrder(node->left);
 
-    cout << node->bid.bidId << SEPARATOR
-         << node->bid.title << SEPARATOR
-         << node->bid.amount << SEPARATOR
-         << node->bid.fund << endl;
+    cout << node->course.bidId << SEPARATOR
+         << node->course.title << SEPARATOR
+         << node->course.amount << SEPARATOR
+         << node->course.fund << endl;
 
     inOrder(node->right);
-}
-
-void BinarySearchTree::postOrder(Node* node) {
-    if (node == nullptr) {
-        return;
-    }
-
-    postOrder(node->left);
-    postOrder(node->right);
-
-    cout << node->bid.bidId << SEPARATOR
-         << node->bid.title << SEPARATOR
-         << node->bid.amount << SEPARATOR
-         << node->bid.fund << endl;
-}
-
-void BinarySearchTree::preOrder(Node* node) {
-    if (node == nullptr) {
-        return;
-    }
-
-    cout << node->bid.bidId << SEPARATOR
-         << node->bid.title << SEPARATOR
-         << node->bid.amount << SEPARATOR
-         << node->bid.fund << endl;
-
-    preOrder(node->left);
-
-    preOrder(node->right);
-}
-
-/**
- * Remove a bid from some node (recursive)
- */
-Node* BinarySearchTree::removeNode(Node* node, string bidId) {
-    if (node == nullptr) {
-        return node;
-    }
-
-    if (bidId < node->bid.bidId) {
-        node->left = removeNode(node->left, bidId);
-
-        return node;
-    }
-
-    if (bidId > node->bid.bidId) {
-        node->right = removeNode(node->right, bidId);
-
-        return node;
-    }
-
-    if (node->left == nullptr && node->right == nullptr) {
-        delete node;
-
-        return nullptr;
-    }
-
-    if (node->left == nullptr) {
-        Node* temp = node->right;
-
-        delete node;
-
-        return temp;
-    }
-
-    if (node->right == nullptr) {
-        Node* temp = node->left;
-
-        delete node;
-
-        return temp;
-    }
-
-    Node* successor = node->right;
-
-    while (successor->left != nullptr) {
-        successor = successor->left;
-    }
-
-    node->bid = successor->bid;
-    node->right = removeNode(node->right, successor->bid.bidId);
-
-    return node;
 }
 
 void BinarySearchTree::destroy(Node* node) {

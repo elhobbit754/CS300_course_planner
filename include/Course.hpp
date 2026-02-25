@@ -5,7 +5,7 @@
 class BinarySearchTree;
 
 // define a structure to hold bid information
-struct Bid {
+struct Course {
     std::string bidId; // unique identifier
 
     std::string title;
@@ -14,7 +14,7 @@ struct Bid {
 
     double amount;
 
-    Bid() {
+    Course() {
         amount = 0.0;
     }
 };
@@ -30,16 +30,16 @@ struct Bid {
 double strToDouble(std::string str, char ch);
 
 /**
- * Print the bid information
+ * Print the course information
  *
- * @param bid struct containing the bid info
+ * @param course struct containing the course info
  */
-void displayBid(Bid bid);
+void displayCourse(Course course);
 
 /**
- * Load a CSV file containing bids into the hash table
+ * Load a CSV file containing courses
  *
  * @param csvPath the path to the CSV file to load
  * @param bst binary search tree to store loaded bids
  */
-void loadBids(const std::string& csvPath, BinarySearchTree& bst);
+void loadData(const std::string& csvPath, BinarySearchTree& bst);

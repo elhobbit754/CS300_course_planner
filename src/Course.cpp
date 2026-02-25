@@ -2,7 +2,7 @@
 #include <string>
 
 #include "../include/CSVparser.hpp"
-#include "../include/Bid.hpp"
+#include "../include/Course.hpp"
 #include "../include/BinarySearchTree.hpp"
 
 using namespace std;
@@ -13,12 +13,12 @@ double strToDouble(string str, char ch) {
     return atof(str.c_str());
 }
 
-void displayBid(Bid bid) {
-    cout << bid.bidId << ": " << bid.title << " | " << bid.amount << " | "
-            << bid.fund << endl;
+void displayCourse(Course course) {
+    cout << course.bidId << ": " << course.title << " | " << course.amount << " | "
+            << course.fund << endl;
 }
 
-void loadBids(const std::string& csvPath, BinarySearchTree& bst) {
+void loadData(const std::string& csvPath, BinarySearchTree& bst) {
     // initialize the CSV Parser using the given path
     csv::Parser file = csv::Parser(csvPath);
 
@@ -28,19 +28,19 @@ void loadBids(const std::string& csvPath, BinarySearchTree& bst) {
         // loop to read rows of a CSV file
         for (unsigned int i = 0; i < file.rowCount(); i++) {
             // Create a data structure and add to the collection of bids
-            Bid bid;
-            bid.bidId = file[i][1];
-            bid.title = file[i][0];
-            bid.fund = file[i][8];
-            bid.amount = strToDouble(file[i][4], '$');
+            Course course;
+            course.bidId = file[i][1];
+            course.title = file[i][0];
+            course.fund = file[i][8];
+            course.amount = strToDouble(file[i][4], '$');
 
             // push this bid to the end
-            bst.Insert(bid);
+            bst.Insert(course);
             ++counter;
         }
     } catch (csv::Error &e) {
         cerr << e.what() << endl;
     }
 
-    cout << counter << " bids read" << endl;
+    cout << counter << " courses read" << endl;
 }

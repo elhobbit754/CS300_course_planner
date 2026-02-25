@@ -1,11 +1,11 @@
 #pragma once
 
 #include <string>
-#include "Bid.hpp"
+#include "Course.hpp"
 
 // Internal structure for tree node
 struct Node {
-    Bid bid;
+    Course course;
     Node *left;
     Node *right;
 
@@ -16,14 +16,14 @@ struct Node {
     }
 
     // initialize with a bid
-    Node(Bid aBid) :
+    Node(Course aBid) :
             Node() {
-        bid = aBid;
+        course = aBid;
     }
 };
 
 /**
- * Implements a Binary Search Tree (BST) for storing Bids
+ * Implements a Binary Search Tree (BST) for storing Courses
  */
 class BinarySearchTree {
     private:
@@ -35,35 +35,15 @@ class BinarySearchTree {
         /**
          * Recursively inserts a bid into the tree.
          * @param node Current node
-         * @param bid The bid to insert
+         * @param course The course to insert
          */
-        void addNode(Node* node, Bid bid);
+        void addNode(Node* node, Course course);
 
         /**
          * Performs an in-order traversal starting at a specified node.
          * @param node Current node
          */
         void inOrder(Node* node);
-
-        /**
-         * Performs a post-order traversal at a specified node
-         * @param node Current node
-         */
-        void postOrder(Node* node);
-
-        /**
-         * Performs a pre-order traversal starting at a specified node
-         * @param node Current node
-         */
-        void preOrder(Node* node);
-
-        /**
-         * Recursively removes a node with the bid ID.
-         * @param node Current subtree root.
-         * @param bidId ID of the bid to remove.
-         * @return Pointer to the updated subtree root.
-         */
-        Node* removeNode(Node* node, std::string bidId);
 
        /**
         * Recursively deletes all nodes in the tree.
@@ -88,31 +68,15 @@ class BinarySearchTree {
         void InOrder();
 
         /**
-         * Performs post-order traversal of the tree.
+         * Inserts a new course into the tree.
+         * @param course The course to insert.
          */
-        void PostOrder();
+        void Insert(Course course);
 
         /**
-         * Performs pre-order traversal of the tree.
+         * Searches the tree for a specific course
+         * @param courseId The ID of the course
+         * @return The matching course or an empty Bid
          */
-        void PreOrder();
-
-        /**
-         * Inserts a new bid into the tree.
-         * @param bid The bid to insert.
-         */
-        void Insert(Bid bid);
-
-        /**
-         * Removes a bid from the tree
-         * @param bidId ID of the bid
-         */
-        void Remove(std::string bidId);
-
-        /**
-         * Searches the tree for a specific bid
-         * @param bidId The ID of the bid
-         * @return The matching Bid or an empty Bid
-         */
-        Bid Search(std::string bidId);
+        Course Search(std::string courseId);
 };

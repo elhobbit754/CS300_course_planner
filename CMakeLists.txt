@@ -7,13 +7,13 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 add_executable(CourseList
         main.cpp
         src/CSVparser.cpp
-        src/Bid.cpp
+        src/Course.cpp
         src/Menu.cpp
         src/BinarySearchTree.cpp
 )
 
 target_include_directories(CourseList PRIVATE
-        ../HashTable/include
+        ../CourseList/include
 )
 
 target_compile_definitions(CourseList PRIVATE
