@@ -8,13 +8,12 @@
 
 #include <iostream>
 
-#include "../include/CSVparser.hpp"
 #include "../include/BinarySearchTree.hpp"
 #include "../include/Course.hpp"
 
 using namespace std;
 
-static const string SEPARATOR = " | ";
+static const string VERTICAL_LINE_DIVIDER = " | ";
 
 //============================================================================
 // Binary Search Tree class definition
@@ -102,7 +101,7 @@ void BinarySearchTree::inOrder(Node* node) {
 
     inOrder(node->left);
 
-    cout << node->course.id << SEPARATOR
+    cout << node->course.id << VERTICAL_LINE_DIVIDER
          << node->course.title << endl;
 
     inOrder(node->right);

@@ -1,9 +1,9 @@
 #include <iostream>
 #include <string>
 
-#include "../include/CSVparser.hpp"
 #include "../include/Course.hpp"
 #include "../include/BinarySearchTree.hpp"
+#include <csv.hpp>
 
 using namespace std;
 
@@ -11,29 +11,36 @@ void displayCourse(Course course) {
     cout << course.id << ": " << course.title << endl;
 }
 
-void loadData(const std::string& csvPath, BinarySearchTree& bst) {
-    csv::Parser file = csv::Parser(csvPath);
+void displayPrerequisites(Course course) {
+    if (!course.prereqs.empty()) {
+        cout << "Prerequisites: ";
+
+        for (size_t i = 0; i < course.prereqs.size(); ++i) {
+            cout << course.prereqs[i] << ", ";
+        }
+    }
+}
+
+void loadData(const string& csvPath, BinarySearchTree& bst) {
+    csv::CSVReader reader(csvPath);
 
     size_t counter = 0;
 
-    try {
-        // loop to read rows of a CSV file
-        for (unsigned int i = 0; i < file.rowCount(); i++) {
-            Course course;
-            course.id = file[i][0];
-            course.title = file[i][1];
+    for (auto& row : reader) {
+        Course course;
+        course.id = row[0].get<>();
+        course.title = row[1].get<>();
 
-            // TODO[add prerequsites to a vector]
-            // for (unsigned int j = 2; j < file[i].size(); j++) {
-            //     // course.prereqs.push_back(file[i][j]);
-            //     cout << file[i][j] << " prereq" << " for " << course.id << endl;
-            // }
+        for (size_t i = 2; i < row.size(); ++i) {
+            string prereq = row[i].get<>();
 
-            bst.Insert(course);
-            ++counter;
+            if (!prereq.empty()) {
+                course.prereqs.push_back(prereq);
+            }
         }
-    } catch (csv::Error &e) {
-        cerr << e.what() << endl;
+
+        bst.Insert(course);
+        counter++;
     }
 
     cout << counter << " courses read" << endl;

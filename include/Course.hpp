@@ -9,6 +9,8 @@ struct Course {
     std::string id;
 
     std::string title;
+
+    std::vector<std::string> prereqs;
 };
 
 /**
@@ -17,6 +19,13 @@ struct Course {
  * @param course struct containing the course info
  */
 void displayCourse(Course course);
+
+/**
+ * Print the course prerequisites
+ *
+ * @param course struct containing the course info
+ */
+void displayPrerequisites(Course course);
 
 /**
  * Load a CSV file containing courses

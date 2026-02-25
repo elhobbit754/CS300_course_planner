@@ -57,7 +57,11 @@ void Menu::findCourse(BinarySearchTree* bst, const std::string& courseId) {
     const Course course = bst->Search(courseId);
 
     if (!course.id.empty()) {
+        cout << endl;
         displayCourse(course);
+        displayPrerequisites(course);
+        cout << endl;
+        cout << endl;
     } else {
         cout << "Course Id " << courseId << " not found." << endl;
     }
