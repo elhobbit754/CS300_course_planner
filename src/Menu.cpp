@@ -4,7 +4,7 @@
 
 #include "../include/Bid.hpp"
 #include "../include/Menu.hpp"
-#include "BinarySearchTree.hpp"
+#include "../include/BinarySearchTree.hpp"
 
 using namespace std;
 

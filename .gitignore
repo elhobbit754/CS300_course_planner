@@ -1,0 +1,40 @@
+# Compiled Object files
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+
+# Compiled Static libraries
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+# Temporary files
+*.tmp
+
+# Build directories
+build/
+bin/
+Debug/
+Release/
+main/
+/main
+**/cmake-build-debug/
+**/main
+.DS_Store
+main.dSYM/
+/.idea/

@@ -3,7 +3,7 @@
 
 #include "../include/CSVparser.hpp"
 #include "../include/Bid.hpp"
-#include "BinarySearchTree.hpp"
+#include "../include/BinarySearchTree.hpp"
 
 using namespace std;
 
