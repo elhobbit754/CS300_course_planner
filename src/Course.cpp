@@ -23,6 +23,12 @@ void loadData(const std::string& csvPath, BinarySearchTree& bst) {
             course.id = file[i][0];
             course.title = file[i][1];
 
+            // TODO[add prerequsites to a vector]
+            // for (unsigned int j = 2; j < file[i].size(); j++) {
+            //     // course.prereqs.push_back(file[i][j]);
+            //     cout << file[i][j] << " prereq" << " for " << course.id << endl;
+            // }
+
             bst.Insert(course);
             ++counter;
         }

@@ -31,7 +31,7 @@ class Menu {
          * @param csvPath Path to the CSV file containing course data.
          * @param bst Pointer to the tree receiving the courses.
          */
-        static void loadDataAndTrackTime(const std::string& csvPath, BinarySearchTree& bst);
+        static void loadCourseList(const std::string& csvPath, BinarySearchTree& bst);
 
         /**
          * Search for a bid and measure execution time.
@@ -39,7 +39,7 @@ class Menu {
          * @param bst Pointer to the tree to search.
          * @param id The course id to search for.
          */
-        static void findBidAndTrackTime(BinarySearchTree* bst, const std::string& id);
+        static void findCourse(BinarySearchTree* bst, const std::string& id);
 
     public:
         /**

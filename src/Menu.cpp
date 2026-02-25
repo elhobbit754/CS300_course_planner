@@ -29,16 +29,17 @@ void Menu::run(int argc, char* argv[]) {
 
         switch (choice) {
             case 1:
-                loadDataAndTrackTime(csvPath, bst);
+                loadCourseList(csvPath, bst);
                 break;
 
             case 2:
+                cout << "Here is a sample schedule:" << endl;
                 bst.InOrder();
                 break;
 
             case 3: {
                 std::string bidKey = promptCourseId(DEFAULT_BID_ID);
-                findBidAndTrackTime(&bst, bidKey);
+                findCourse(&bst, bidKey);
                 break;
             }
 
@@ -52,34 +53,20 @@ void Menu::run(int argc, char* argv[]) {
     }
 }
 
-void Menu::findBidAndTrackTime(BinarySearchTree* bst, const std::string& courseId) {
-    clock_t ticks = clock();
+void Menu::findCourse(BinarySearchTree* bst, const std::string& courseId) {
     const Course course = bst->Search(courseId);
-    ticks = clock() - ticks; // current clock ticks minus starting clock ticks
 
     if (!course.id.empty()) {
         displayCourse(course);
     } else {
         cout << "Course Id " << courseId << " not found." << endl;
     }
-
-    cout << "time: " << ticks << " clock ticks" << endl;
-    cout << "time: " << ticks * 1.0 / CLOCKS_PER_SEC << " seconds" << endl;
 }
 
-void Menu::loadDataAndTrackTime(const string& csvPath, BinarySearchTree& bst) {
-    // Initialize a timer variable before loading bids
-    clock_t ticks = clock();
-
-    cout << endl;
+void Menu::loadCourseList(const string& csvPath, BinarySearchTree& bst) {
     cout << "Loading CSV file " << csvPath << endl;
     cout << endl;
     loadData(csvPath, bst);
-
-    // Calculate elapsed time and display result
-    ticks = clock() - ticks; // current clock ticks minus starting clock ticks
-    cout << "time: " << ticks << " clock ticks" << endl;
-    cout << "time: " << ticks * 1.0 / CLOCKS_PER_SEC << " seconds" << endl;
     cout << endl;
 }
 
