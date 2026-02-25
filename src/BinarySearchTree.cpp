@@ -59,11 +59,11 @@ Course BinarySearchTree::Search(string courseId) {
     Node* current = root;
 
     while (current != nullptr) {
-        if (current->course.bidId == courseId) {
+        if (current->course.id == courseId) {
             return current->course;
         }
 
-        if (courseId < current->course.bidId) {
+        if (courseId < current->course.id) {
             current = current->left;
         } else {
             current = current->right;
@@ -80,7 +80,7 @@ Course BinarySearchTree::Search(string courseId) {
  * @param course course to be added
  */
 void BinarySearchTree::addNode(Node* node, Course course) {
-    if (course.bidId < node->course.bidId) {
+    if (course.id < node->course.id) {
         if (node->left == nullptr) {
             node->left = new Node(course);
         } else {
@@ -102,10 +102,8 @@ void BinarySearchTree::inOrder(Node* node) {
 
     inOrder(node->left);
 
-    cout << node->course.bidId << SEPARATOR
-         << node->course.title << SEPARATOR
-         << node->course.amount << SEPARATOR
-         << node->course.fund << endl;
+    cout << node->course.id << SEPARATOR
+         << node->course.title << endl;
 
     inOrder(node->right);
 }

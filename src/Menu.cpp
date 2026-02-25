@@ -29,7 +29,7 @@ void Menu::run(int argc, char* argv[]) {
 
         switch (choice) {
             case 1:
-                loadBidsAndTrackTime(csvPath, bst);
+                loadDataAndTrackTime(csvPath, bst);
                 break;
 
             case 2:
@@ -37,7 +37,7 @@ void Menu::run(int argc, char* argv[]) {
                 break;
 
             case 3: {
-                std::string bidKey = promptBidId(DEFAULT_BID_ID);
+                std::string bidKey = promptCourseId(DEFAULT_BID_ID);
                 findBidAndTrackTime(&bst, bidKey);
                 break;
             }
@@ -52,22 +52,22 @@ void Menu::run(int argc, char* argv[]) {
     }
 }
 
-void Menu::findBidAndTrackTime(BinarySearchTree* bst, const std::string& bidKey) {
+void Menu::findBidAndTrackTime(BinarySearchTree* bst, const std::string& courseId) {
     clock_t ticks = clock();
-    const Course bid = bst->Search(bidKey);
+    const Course course = bst->Search(courseId);
     ticks = clock() - ticks; // current clock ticks minus starting clock ticks
 
-    if (!bid.bidId.empty()) {
-        displayCourse(bid);
+    if (!course.id.empty()) {
+        displayCourse(course);
     } else {
-        cout << "Bid Id " << bidKey << " not found." << endl;
+        cout << "Course Id " << courseId << " not found." << endl;
     }
 
     cout << "time: " << ticks << " clock ticks" << endl;
     cout << "time: " << ticks * 1.0 / CLOCKS_PER_SEC << " seconds" << endl;
 }
 
-void Menu::loadBidsAndTrackTime(const string& csvPath, BinarySearchTree& bst) {
+void Menu::loadDataAndTrackTime(const string& csvPath, BinarySearchTree& bst) {
     // Initialize a timer variable before loading bids
     clock_t ticks = clock();
 
@@ -91,12 +91,12 @@ void Menu::printOptions() {
     cout << "What would you like to do? ";
 }
 
-string Menu::promptBidId(const string& defaultId) {
-    string bidId;
+string Menu::promptCourseId(const string& defaultId) {
+    string id;
 
     cout << "What course do you want to know about?: ";
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
-    getline(cin, bidId);
+    getline(cin, id);
 
-    return bidId.empty() ? defaultId : bidId;
+    return id.empty() ? defaultId : id;
 }

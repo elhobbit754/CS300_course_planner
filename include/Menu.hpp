@@ -19,27 +19,27 @@ class Menu {
          * If the user provides an empty input, the supplied default ID
          * is returned instead.
          *
-         * @param defaultId The bid ID to use if the user presses Enter.
-         * @return The user-provided bid ID or the default value.
+         * @param defaultId The course ID to use if the user presses Enter.
+         * @return The user-provided course ID or the default value.
          */
-        static std::string promptBidId(const std::string& defaultId);
+        static std::string promptCourseId(const std::string& defaultId);
 
         /**
-         * Reads bid records from the specified CSV file, inserts them
+         * Reads course records from the specified CSV file, inserts them
          * into a provided tree, and reports the elapsed time.
          *
-         * @param csvPath Path to the CSV file containing bid data.
-         * @param bst Pointer to the tree receiving the bids.
+         * @param csvPath Path to the CSV file containing course data.
+         * @param bst Pointer to the tree receiving the courses.
          */
-        static void loadBidsAndTrackTime(const std::string& csvPath, BinarySearchTree& bst);
+        static void loadDataAndTrackTime(const std::string& csvPath, BinarySearchTree& bst);
 
         /**
          * Search for a bid and measure execution time.
          *
          * @param bst Pointer to the tree to search.
-         * @param bidKey The bid key to search for.
+         * @param id The course id to search for.
          */
-        static void findBidAndTrackTime(BinarySearchTree* bst, const std::string& bidKey);
+        static void findBidAndTrackTime(BinarySearchTree* bst, const std::string& id);
 
     public:
         /**
