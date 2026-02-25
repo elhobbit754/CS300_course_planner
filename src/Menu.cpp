@@ -14,6 +14,8 @@ void Menu::run(int argc, char* argv[]) {
     const string DEFAULT_BID_ID = "80687";
     string csvPath = argc > 1 ? argv[1] : string(DATA_DIR) + "/eBid_Monthly_Sales.csv";
 
+    cout << "Welcome to the course planner." << endl;
+
     while (choice != 9) {
         printOptions();
 
@@ -51,7 +53,7 @@ void Menu::run(int argc, char* argv[]) {
                 break;
 
             default:
-                cout << "Invalid choice. Try again" << endl;
+                cout << choice << " is not a valid option." << endl;
         }
     }
 }
@@ -88,19 +90,17 @@ void Menu::loadBidsAndTrackTime(const string& csvPath, BinarySearchTree& bst) {
 }
 
 void Menu::printOptions() {
-    cout << "Menu:" << endl;
-    cout << "  1. Load Bids" << endl;
-    cout << "  2. Display All Bids" << endl;
-    cout << "  3. Find Bid" << endl;
-    cout << "  4. Remove Bid" << endl;
+    cout << "  1. Load Data Structure." << endl;
+    cout << "  2. Print Course List." << endl;
+    cout << "  3. Print Course." << endl;
     cout << "  9. Exit" << endl;
-    cout << "Enter choice: ";
+    cout << "What would you like to do? ";
 }
 
 string Menu::promptBidId(const string& defaultId) {
     string bidId;
 
-    cout << "Enter Bid ID (or press Enter for default): ";
+    cout << "What course do you want to know about?: ";
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
     getline(cin, bidId);
 
