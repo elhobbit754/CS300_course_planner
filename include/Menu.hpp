@@ -13,16 +13,15 @@ class Menu {
          * Displays the numbered actions that the user can select from
          * when interacting with the application.
          */
-        static void printOptions();
+        static void printActions();
 
         /**
          * If the user provides an empty input, the supplied default ID
          * is returned instead.
          *
-         * @param defaultId The course ID to use if the user presses Enter.
          * @return The user-provided course ID or the default value.
          */
-        static std::string promptCourseId(const std::string& defaultId);
+        static std::string promptCourseId();
 
         /**
          * Reads course records from the specified CSV file, inserts them
@@ -31,7 +30,7 @@ class Menu {
          * @param csvPath Path to the CSV file containing course data.
          * @param bst Pointer to the tree receiving the courses.
          */
-        static void loadCourseList(const std::string& csvPath, BinarySearchTree& bst);
+        static void loadCourses(const std::string& csvPath, BinarySearchTree& bst);
 
         /**
          * Search for a bid and measure execution time.
@@ -39,7 +38,7 @@ class Menu {
          * @param bst Pointer to the tree to search.
          * @param id The course id to search for.
          */
-        static void findCourse(BinarySearchTree* bst, const std::string& id);
+        static void showCourseDetails(BinarySearchTree* bst, const std::string& id);
 
     public:
         /**
@@ -49,5 +48,5 @@ class Menu {
          * @param argc Argument count from the command line.
          * @param argv Argument values from the command line.
          */
-        static void run(int argc, char* argv[]);
+        static void show(int argc, char* argv[]);
 };

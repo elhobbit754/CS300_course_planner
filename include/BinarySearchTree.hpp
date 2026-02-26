@@ -15,10 +15,10 @@ struct Node {
         right = nullptr;
     }
 
-    // initialize with a bid
-    Node(Course aBid) :
+    // initialize with a course
+    Node(Course data) :
             Node() {
-        course = aBid;
+        course = data;
     }
 };
 

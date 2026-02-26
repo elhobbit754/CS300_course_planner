@@ -8,16 +8,17 @@
 
 using namespace std;
 
-void Menu::run(int argc, char* argv[]) {
+static const string DEFAULT_FILE_PATH = "CS 300 ABCU_Advising_Program_Input.csv";
+
+void Menu::show(int argc, char* argv[]) {
     BinarySearchTree bst;
     int choice = 0;
-    const string DEFAULT_BID_ID = "80687";
-    string csvPath = argc > 1 ? argv[1] : string(DATA_DIR) + "/CS 300 ABCU_Advising_Program_Input.csv";
+    string csvPath = argc > 1 ? argv[1] : string(DATA_DIR) + "/" + DEFAULT_FILE_PATH;
 
     cout << "Welcome to the course planner." << endl;
 
     while (choice != 9) {
-        printOptions();
+        printActions();
 
         if (!(cin >> choice)) {
             cin.clear();
@@ -29,7 +30,7 @@ void Menu::run(int argc, char* argv[]) {
 
         switch (choice) {
             case 1:
-                loadCourseList(csvPath, bst);
+                loadCourses(csvPath, bst);
                 break;
 
             case 2:
@@ -38,13 +39,13 @@ void Menu::run(int argc, char* argv[]) {
                 break;
 
             case 3: {
-                std::string bidKey = promptCourseId(DEFAULT_BID_ID);
-                findCourse(&bst, bidKey);
+                string id = promptCourseId();
+                showCourseDetails(&bst, id);
                 break;
             }
 
             case 9:
-                cout << "Good bye." << endl;
+                cout << "Thank you for using the course planner!" << endl;
                 break;
 
             default:
@@ -53,28 +54,26 @@ void Menu::run(int argc, char* argv[]) {
     }
 }
 
-void Menu::findCourse(BinarySearchTree* bst, const std::string& courseId) {
+void Menu::showCourseDetails(BinarySearchTree* bst, const std::string& courseId) {
     const Course course = bst->Search(courseId);
 
     if (!course.id.empty()) {
         cout << endl;
         displayCourse(course);
         displayPrerequisites(course);
-        cout << endl;
-        cout << endl;
     } else {
         cout << "Course Id " << courseId << " not found." << endl;
     }
 }
 
-void Menu::loadCourseList(const string& csvPath, BinarySearchTree& bst) {
+void Menu::loadCourses(const string& csvPath, BinarySearchTree& bst) {
     cout << "Loading CSV file " << csvPath << endl;
     cout << endl;
     loadData(csvPath, bst);
     cout << endl;
 }
 
-void Menu::printOptions() {
+void Menu::printActions() {
     cout << "  1. Load Data Structure." << endl;
     cout << "  2. Print Course List." << endl;
     cout << "  3. Print Course." << endl;
@@ -82,12 +81,19 @@ void Menu::printOptions() {
     cout << "What would you like to do? ";
 }
 
-string Menu::promptCourseId(const string& defaultId) {
+string Menu::promptCourseId() {
     string id;
 
-    cout << "What course do you want to know about?: ";
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
-    getline(cin, id);
 
-    return id.empty() ? defaultId : id;
+    while (true) {
+        cout << "What course do you want to know about?: ";
+        getline(cin, id);
+
+        if (!id.empty()) {
+            return id;
+        }
+
+        cout << "Course ID cannot be empty. Please try again." << endl;
+    }
 }

@@ -100,10 +100,7 @@ void BinarySearchTree::inOrder(Node* node) {
     }
 
     inOrder(node->left);
-
-    cout << node->course.id << VERTICAL_LINE_DIVIDER
-         << node->course.title << endl;
-
+    displayCourse(node->course);
     inOrder(node->right);
 }
 
