@@ -26,31 +26,6 @@ struct Node {
  * Implements a Binary Search Tree (BST) for storing Courses
  */
 class BinarySearchTree {
-    private:
-        /**
-         * Pointer to the root node of the tree.
-         */
-        Node* root;
-
-        /**
-         * Recursively inserts a bid into the tree.
-         * @param node Current node
-         * @param course The course to insert
-         */
-        void addNode(Node* node, Course course);
-
-        /**
-         * Performs an in-order traversal starting at a specified node.
-         * @param node Current node
-         */
-        void inOrder(Node* node);
-
-       /**
-        * Recursively deletes all nodes in the tree.
-        * @param node Current node
-        */
-        void destroy(Node* node);
-
     public:
         /**
          * Constructor
@@ -79,4 +54,29 @@ class BinarySearchTree {
          * @return The matching course or an empty Bid
          */
         Course Search(std::string courseId);
+
+    private:
+        /**
+         * Pointer to the root node of the tree.
+         */
+        Node* root;
+
+        /**
+         * Recursively inserts a bid into the tree.
+         * @param node Current node
+         * @param course The course to insert
+         */
+        void addNode(Node* node, Course course);
+
+        /**
+         * Performs an in-order traversal starting at a specified node.
+         * @param node Current node
+         */
+        void inOrder(Node* node);
+
+       /**
+        * Recursively deletes all nodes in the tree.
+        * @param node Current node
+        */
+        void destroy(Node* node);
 };

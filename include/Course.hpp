@@ -26,11 +26,3 @@ void displayCourse(Course course);
  * @param course struct containing the course info
  */
 void displayPrerequisites(Course course);
-
-/**
- * Load a CSV file containing courses
- *
- * @param csvPath the path to the CSV file to load
- * @param bst binary search tree to store loaded bids
- */
-void loadData(const std::string& csvPath, BinarySearchTree& bst);

@@ -4,15 +4,15 @@
 
 #include "../include/Course.hpp"
 #include "../include/Menu.hpp"
-#include "../include/BinarySearchTree.hpp"
 #include "../include/Constants.hpp"
+#include "../include/DataService.hpp"
 
 using namespace std;
 
 static const string EMPTY_SPACE = " ";
 
 void Menu::show(int argc, char* argv[]) {
-    BinarySearchTree bst;
+    DataService dataService;
     int choice = 0;
     string csvPath = argc > 1 ? argv[1] : string(DATA_DIR) + "/" + Constants::DEFAULT_FILE_PATH;
 
@@ -25,23 +25,24 @@ void Menu::show(int argc, char* argv[]) {
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
             cout << UI_MESSAGES::INVALID_INPUT_ENTER_NUMBER << endl;
-
             continue;
         }
 
         switch (choice) {
             case static_cast<int>(UserActionTypes::LOAD_DATA):
-                loadCourses(csvPath, bst);
+                cout << UI_MESSAGES::loadingCVSFile(csvPath) << endl;
+                cout << endl;
+                dataService.loadCourses(csvPath);;
+                cout << endl;
                 break;
 
             case static_cast<int>(UserActionTypes::PRINT_COURSE_LIST):
                 cout << UI_MESSAGES::HERE_IS_A_SAMPLE_SCHEDULE << endl;
-                bst.InOrder();
+                dataService.showCourses();
                 break;
 
             case static_cast<int>(UserActionTypes::PRINT_COURSE_DETAILS): {
-                string id = promptCourseId();
-                showCourseDetails(&bst, id);
+                showCourseDetails(dataService);
                 break;
             }
 
@@ -55,23 +56,17 @@ void Menu::show(int argc, char* argv[]) {
     }
 }
 
-void Menu::showCourseDetails(BinarySearchTree* bst, const std::string& courseId) {
-    const Course course = bst->Search(courseId);
+void Menu::showCourseDetails(DataService& dataService) {
+    string id = promptCourseId();
+    Course course = dataService.searchCourse(id);
 
     if (!course.id.empty()) {
         cout << endl;
         displayCourse(course);
         displayPrerequisites(course);
     } else {
-        cout << UI_MESSAGES::courseNotFound(courseId) << endl;
+        cout << UI_MESSAGES::courseNotFound(course.id) << endl;
     }
-}
-
-void Menu::loadCourses(const string& csvPath, BinarySearchTree& bst) {
-    cout << UI_MESSAGES::loadingCVSFile(csvPath) << endl;
-    cout << endl;
-    loadData(csvPath, bst);
-    cout << endl;
 }
 
 void Menu::printActions() {

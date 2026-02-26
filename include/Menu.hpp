@@ -1,7 +1,7 @@
 #pragma once
 
 #include <string>
-#include "BinarySearchTree.hpp"
+#include "DataService.hpp"
 
 /**
  * Command-line menu controller for the bid application.
@@ -23,22 +23,7 @@ class Menu {
          */
         static std::string promptCourseId();
 
-        /**
-         * Reads course records from the specified CSV file, inserts them
-         * into a provided tree, and reports the elapsed time.
-         *
-         * @param csvPath Path to the CSV file containing course data.
-         * @param bst Pointer to the tree receiving the courses.
-         */
-        static void loadCourses(const std::string& csvPath, BinarySearchTree& bst);
-
-        /**
-         * Search for a bid and measure execution time.
-         *
-         * @param bst Pointer to the tree to search.
-         * @param id The course id to search for.
-         */
-        static void showCourseDetails(BinarySearchTree* bst, const std::string& id);
+        static void showCourseDetails(DataService& dataService);
 
     public:
         /**

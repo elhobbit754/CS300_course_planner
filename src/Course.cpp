@@ -27,28 +27,3 @@ void displayPrerequisites(Course course) {
     cout << endl;
     cout << endl;
 }
-
-void loadData(const string& csvPath, BinarySearchTree& bst) {
-    csv::CSVReader reader(csvPath);
-
-    size_t counter = 0;
-
-    for (auto& row : reader) {
-        Course course;
-        course.id = row[0].get<>();
-        course.title = row[1].get<>();
-
-        for (size_t i = 2; i < row.size(); ++i) {
-            string prereq = row[i].get<>();
-
-            if (!prereq.empty()) {
-                course.prereqs.push_back(prereq);
-            }
-        }
-
-        bst.Insert(course);
-        counter++;
-    }
-
-    cout << counter << " courses read" << endl;
-}

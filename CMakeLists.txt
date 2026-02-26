@@ -20,6 +20,7 @@ add_executable(CourseList
         src/Menu.cpp
         src/BinarySearchTree.cpp
         include/Constants.hpp
+        src/DataService.cpp
 )
 
 target_link_libraries(CourseList PRIVATE csv)
