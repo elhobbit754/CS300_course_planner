@@ -99,7 +99,7 @@ void BinarySearchTree::inOrder(Node* node) {
     }
 
     inOrder(node->left);
-    View::displayCourse(node->course);
+    View::showBasicCourseInfo(node->course);
     inOrder(node->right);
 }
 

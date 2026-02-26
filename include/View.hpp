@@ -23,14 +23,7 @@ class View {
          *
          * @param course struct containing the course info
          */
-        static void displayCourse(Course course);
-
-        /**
-         * Print the course prerequisites
-         *
-         * @param course struct containing the course info
-         */
-        static void displayPrerequisites(Course course);
+        static void showBasicCourseInfo(Course course);
 
     private:
         /**
@@ -48,4 +41,11 @@ class View {
         static std::string promptCourseId();
 
         static void showCourseDetails(DataService& dataService);
+
+        /**
+         * Print the course prerequisites
+         *
+         * @param course struct containing the course info
+         */
+        static void showCoursePrerequisites(Course course);
 };

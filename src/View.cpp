@@ -64,18 +64,18 @@ void View::showCourseDetails(DataService& dataService) {
 
     if (!course.id.empty()) {
         cout << endl;
-        displayCourse(course);
-        displayPrerequisites(course);
+        showBasicCourseInfo(course);
+        showCoursePrerequisites(course);
     } else {
         cout << UI_MESSAGES::courseNotFound(course.id) << endl;
     }
 }
 
-void View::displayCourse(Course course) {
+void View::showBasicCourseInfo(Course course) {
     cout << course.id << ", " << course.title << endl;
 }
 
-void View::displayPrerequisites(Course course) {
+void View::showCoursePrerequisites(Course course) {
     if (course.prereqs.empty()) {
         cout << "This course does not have prerequisites" << endl;
         cout << endl;
