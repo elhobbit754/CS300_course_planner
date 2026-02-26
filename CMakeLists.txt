@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 4.1)
-project(CourseList LANGUAGES CXX)
+project(CoursePlanner LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -14,7 +14,7 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(csvparser)
 
-add_executable(CourseList
+add_executable(CoursePlanner
         main.cpp
         src/View.cpp
         src/BinarySearchTree.cpp
@@ -22,12 +22,12 @@ add_executable(CourseList
         src/DataService.cpp
 )
 
-target_link_libraries(CourseList PRIVATE csv)
+target_link_libraries(CoursePlanner PRIVATE csv)
 
-target_include_directories(CourseList PRIVATE
-        ../CourseList/include
+target_include_directories(CoursePlanner PRIVATE
+        ../CoursePlanner/include
 )
 
-target_compile_definitions(CourseList PRIVATE
+target_compile_definitions(CoursePlanner PRIVATE
         DATA_DIR="${CMAKE_SOURCE_DIR}/data"
 )
