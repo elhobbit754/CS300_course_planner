@@ -16,8 +16,7 @@ FetchContent_MakeAvailable(csvparser)
 
 add_executable(CourseList
         main.cpp
-        src/Course.cpp
-        src/Menu.cpp
+        src/View.cpp
         src/BinarySearchTree.cpp
         include/Constants.hpp
         src/DataService.cpp

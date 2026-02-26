@@ -10,10 +10,9 @@
 
 #include "../include/BinarySearchTree.hpp"
 #include "../include/Course.hpp"
+#include "../include/View.hpp"
 
 using namespace std;
-
-static const string VERTICAL_LINE_DIVIDER = " | ";
 
 //============================================================================
 // Binary Search Tree class definition
@@ -100,7 +99,7 @@ void BinarySearchTree::inOrder(Node* node) {
     }
 
     inOrder(node->left);
-    displayCourse(node->course);
+    View::displayCourse(node->course);
     inOrder(node->right);
 }
 
