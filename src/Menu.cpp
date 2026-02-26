@@ -5,51 +5,52 @@
 #include "../include/Course.hpp"
 #include "../include/Menu.hpp"
 #include "../include/BinarySearchTree.hpp"
+#include "../include/Constants.hpp"
 
 using namespace std;
 
-static const string DEFAULT_FILE_PATH = "CS 300 ABCU_Advising_Program_Input.csv";
+static const string EMPTY_SPACE = " ";
 
 void Menu::show(int argc, char* argv[]) {
     BinarySearchTree bst;
     int choice = 0;
-    string csvPath = argc > 1 ? argv[1] : string(DATA_DIR) + "/" + DEFAULT_FILE_PATH;
+    string csvPath = argc > 1 ? argv[1] : string(DATA_DIR) + "/" + Constants::DEFAULT_FILE_PATH;
 
-    cout << "Welcome to the course planner." << endl;
+    cout << UI_MESSAGES::WELCOME_TO_THE_COURSE_PLANNER << endl;
 
-    while (choice != 9) {
+    while (static_cast<UserActionTypes>(choice) != UserActionTypes::EXIT_PROGRAM) {
         printActions();
 
         if (!(cin >> choice)) {
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            cout << "Invalid input. Please enter a number" << endl;
+            cout << UI_MESSAGES::INVALID_INPUT_ENTER_NUMBER << endl;
 
             continue;
         }
 
         switch (choice) {
-            case 1:
+            case static_cast<int>(UserActionTypes::LOAD_DATA):
                 loadCourses(csvPath, bst);
                 break;
 
-            case 2:
-                cout << "Here is a sample schedule:" << endl;
+            case static_cast<int>(UserActionTypes::PRINT_COURSE_LIST):
+                cout << UI_MESSAGES::HERE_IS_A_SAMPLE_SCHEDULE << endl;
                 bst.InOrder();
                 break;
 
-            case 3: {
+            case static_cast<int>(UserActionTypes::PRINT_COURSE_DETAILS): {
                 string id = promptCourseId();
                 showCourseDetails(&bst, id);
                 break;
             }
 
-            case 9:
-                cout << "Thank you for using the course planner!" << endl;
+            case static_cast<int>(UserActionTypes::EXIT_PROGRAM):
+                cout << UI_MESSAGES::THANK_YOU_FOR_USING_THE_COURSE_PLANNER << endl;
                 break;
 
             default:
-                cout << choice << " is not a valid option." << endl;
+                cout << choice << EMPTY_SPACE << UI_MESSAGES::IS_NOT_A_VALID_OPTION << endl;
         }
     }
 }
@@ -62,23 +63,23 @@ void Menu::showCourseDetails(BinarySearchTree* bst, const std::string& courseId)
         displayCourse(course);
         displayPrerequisites(course);
     } else {
-        cout << "Course Id " << courseId << " not found." << endl;
+        cout << UI_MESSAGES::courseNotFound(courseId) << endl;
     }
 }
 
 void Menu::loadCourses(const string& csvPath, BinarySearchTree& bst) {
-    cout << "Loading CSV file " << csvPath << endl;
+    cout << UI_MESSAGES::loadingCVSFile(csvPath) << endl;
     cout << endl;
     loadData(csvPath, bst);
     cout << endl;
 }
 
 void Menu::printActions() {
-    cout << "  1. Load Data Structure." << endl;
-    cout << "  2. Print Course List." << endl;
-    cout << "  3. Print Course." << endl;
-    cout << "  9. Exit" << endl;
-    cout << "What would you like to do? ";
+    cout << UI_MESSAGES::LOAD_DATA_STRUCTURE << endl;
+    cout << UI_MESSAGES::PRINT_COURSE_LIST << endl;
+    cout << UI_MESSAGES::PRINT_COURSE << endl;
+    cout << UI_MESSAGES::EXIT << endl;
+    cout << UI_MESSAGES::WHAT_WOULD_YOU_LIKE_TO_DO;
 }
 
 string Menu::promptCourseId() {
@@ -87,13 +88,13 @@ string Menu::promptCourseId() {
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
     while (true) {
-        cout << "What course do you want to know about?: ";
+        cout << UI_MESSAGES::WHAT_COURSE_DO_YOU_WANT_TO_KNOW_ABOUT << EMPTY_SPACE;
         getline(cin, id);
 
         if (!id.empty()) {
             return id;
         }
 
-        cout << "Course ID cannot be empty. Please try again." << endl;
+        cout << UI_MESSAGES::COURSE_ID_CANNOT_BE_EMPTY_PLEASE_TRY_AGAIN << endl;
     }
 }
